@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="367.0" prefWidth="587.0" style="-fx-padding: 30; -fx-background-color: #ecb6fc;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="367.0" prefWidth="587.0" style="-fx-padding: 30; -fx-background-color: #ecb6fc;" fx:controller="co.edu.uniquindio.reservasuq.controladores.PanelAdministradorControlador" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="52.0" prefWidth="526.0">
          <children>
