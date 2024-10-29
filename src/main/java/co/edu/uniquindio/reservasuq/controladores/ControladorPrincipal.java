@@ -101,13 +101,9 @@ public class ControladorPrincipal implements ServiciosUq {
         return null;
     }
 
-    @Override
-    public void verificarDisponibilidad(TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) throws Exception {
-
-    }
 
     @Override
-    public void gestionarInstalacion(TipoInstalacion tipoInstalacion, int nuevaCapacidadMaxima, double nuevoCostoExterno) throws Exception {
+    public void editarInstalacion(TipoInstalacion tipoInstalacion, int nuevaCapacidadMaxima, double nuevoCostoExterno, LocalDateTime horario) throws Exception {
 
     }
 
@@ -121,15 +117,6 @@ public class ControladorPrincipal implements ServiciosUq {
 
     }
 
-    @Override
-    public void verHistorialReservas(String cedula) {
-
-    }
-
-    @Override
-    public void enviarEmailConfirmacion(String correoInstitucional, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime horaInicio) {
-
-    }
 
     @Override
     public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, LocalDateTime horario) {
