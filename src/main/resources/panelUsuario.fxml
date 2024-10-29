@@ -1,84 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="534.0" prefWidth="776.0" style="-fx-background-color: #ecb6fc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.reservasuq.controladores.PanelUsuarioControlador">
-    <children>
-        <Label layoutX="233.0" layoutY="31.0" text="BIENVENIDO AL PANEL DEL USUARIO">
-            <font>
-                <Font name="System Bold" size="21.0" />
-            </font>
-        </Label>
-        <Button fx:id="crearReserva" layoutX="565.0" layoutY="118.0" mnemonicParsing="false" onAction="#crearReserva" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #c6f8b7;" text="Hacer Reserva">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
-        <Button fx:id="editarReserva" layoutX="564.0" layoutY="157.0" mnemonicParsing="false" onAction="#editarReserva" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #f8e3b7;" text="Editar Reserva">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
-        <Button fx:id="eliminarReserva" layoutX="565.0" layoutY="198.0" mnemonicParsing="false" onAction="#eliminarReserva" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #f86d6d;" text="Eliminar Reserva">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
-        <VBox layoutX="55.0" layoutY="118.0" prefHeight="109.0" prefWidth="451.0">
-            <children>
-                <GridPane prefHeight="102.0" prefWidth="451.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.20001220703125" minWidth="10.0" prefWidth="193.99998779296874" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.6000518798828" minWidth="10.0" prefWidth="365.2000122070313" />
-                    </columnConstraints>
-                    <rowConstraints>
-
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                    </rowConstraints>
-                    <children>
-                        <Label text="Numero de identificación:">
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Label>
-                        <Label text="Tipo de instalación:" GridPane.rowIndex="1" />
-                        <Label text="Fecha de reserva:" GridPane.rowIndex="2" />
-                        <Label text="Hora de Reserva:" GridPane.rowIndex="3" />
-                        <TextField fx:id="cedulatxt" GridPane.columnIndex="1" />
-                        <ComboBox fx:id="instalacionCombo" prefHeight="25.0" prefWidth="318.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="reservaDate" prefHeight="25.0" prefWidth="326.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    </children>
-                </GridPane>
-            </children></VBox>
-        <HBox layoutX="84.0" layoutY="299.0" prefHeight="228.0" prefWidth="672.0">
-            <children>
-                <TableView fx:id="tablaContactos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="227.0" prefWidth="669.0">
-                    <columns>
-                        <TableColumn fx:id="colApellido" prefWidth="138.4000244140625" text="ID RESERVA" />
-                        <TableColumn fx:id="colTelefono" minWidth="0.0" prefWidth="194.4000244140625" text="TIPO DE INSTALACIÓN" />
-                        <TableColumn fx:id="colCumpleanos" prefWidth="160.0" text="FECHA DE RESERVA" />
-                        <TableColumn fx:id="colCorreo" minWidth="0.0" prefWidth="174.4000244140625" text="HORA DE RESERVA" />
-                    </columns>
-                </TableView>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" layoutY="229.0" prefHeight="70.0" prefWidth="774.0" style="-fx-spacing: 20;">
-            <children>
-                <Label text="Tipo Instalación  " />
-                <ComboBox fx:id="tipoEventoFl" prefHeight="26.0" prefWidth="129.0" />
-                <Button fx:id="listarReservas" mnemonicParsing="false" onAction="#listarReservas" text="Listar todas mis reservas" />
-                <Button fx:id="buscarReservas" mnemonicParsing="false" onAction="#buscarReservas" text="Buscar Reserva" />
-            </children>
-        </HBox>
-        <Label layoutX="64.0" layoutY="76.0" prefHeight="18.0" prefWidth="325.0" />
-        <Label layoutX="565.0" layoutY="76.0" prefHeight="18.0" prefWidth="239.0" />
-        <Button fx:id="cerrarSesion" layoutX="685.0" layoutY="34.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
-    </children>
-</AnchorPane>
+<VBox prefHeight="473.0" prefWidth="737.0" style="-fx-padding: 30.0; -fx-background-color: #ecb6fc;" fx:controller="co.edu.uniquindio.reservasuq.controladores.PanelUsuarioControlador" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="BIENVENIDO AL PANEL DEL USUARIO">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Region prefHeight="200.0" prefWidth="200.0" />
+            <Button fx:id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="325.0" />
+            <Label prefHeight="18.0" prefWidth="239.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 20.0;">
+         <children>
+            <GridPane hgap="30.0" prefHeight="130.0" prefWidth="496.0" vgap="30.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.20001220703125" minWidth="10.0" prefWidth="151.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.6000518798828" minWidth="10.0" prefWidth="176.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Numero de identificación:">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="108.0" text="Tipo de instalación:" GridPane.rowIndex="1" />
+                  <Label text="Fecha de reserva:" GridPane.rowIndex="2" />
+                  <Label text="Hora de Reserva:" GridPane.rowIndex="3" />
+                  <TextField fx:id="cedulatxt" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="instalacionCombo" prefHeight="25.0" prefWidth="318.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="reservaDate" prefHeight="25.0" prefWidth="326.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <Region prefHeight="200.0" prefWidth="200.0" />
+            <VBox prefHeight="130.0" prefWidth="267.0" spacing="10.0">
+               <children>
+                  <Button fx:id="crearReserva" mnemonicParsing="false" onAction="#crearReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #c6f8b7;" text="Hacer Reserva">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="editarReserva" mnemonicParsing="false" onAction="#editarReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #f8e3b7;" text="Editar Reserva">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="eliminarReserva" mnemonicParsing="false" onAction="#eliminarReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #f86d6d;" text="Eliminar Reserva">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="774.0" style="-fx-padding: 30.0; -fx-spacing: 30.0;">
+         <children>
+            <Label text="Tipo Instalación  " />
+            <ComboBox fx:id="tipoEventoFl" prefHeight="26.0" prefWidth="129.0" />
+            <Button fx:id="listarReservas" mnemonicParsing="false" onAction="#listarReservas" text="Listar todas mis reservas" />
+            <Button fx:id="buscarReservas" mnemonicParsing="false" onAction="#buscarReservas" text="Buscar Reserva" />
+         </children>
+      </HBox>
+      <TableView fx:id="tablaContactos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="227.0" prefWidth="669.0">
+         <columns>
+            <TableColumn fx:id="colApellido" prefWidth="138.4000244140625" text="ID RESERVA" />
+            <TableColumn fx:id="colTelefono" minWidth="0.0" prefWidth="194.4000244140625" text="TIPO DE INSTALACIÓN" />
+            <TableColumn fx:id="colCumpleanos" prefWidth="160.0" text="FECHA DE RESERVA" />
+            <TableColumn fx:id="colCorreo" minWidth="0.0" prefWidth="174.4000244140625" text="HORA DE RESERVA" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>

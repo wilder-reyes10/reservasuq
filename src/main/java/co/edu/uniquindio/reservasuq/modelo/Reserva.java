@@ -17,7 +17,6 @@ public class Reserva {
     private Instalacion instalacion;
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
-    private LocalTime horaFin;
     private boolean cancelada;
     private double costo;
 }

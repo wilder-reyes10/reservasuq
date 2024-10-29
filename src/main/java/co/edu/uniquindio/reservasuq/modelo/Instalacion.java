@@ -16,7 +16,7 @@ import java.util.List;
 public class Instalacion {
     private String nombre;
     private int capacidadMaxima;
-    private List<Reserva> reservas;
     private double costoExterno;
     private TipoInstalacion tipoInstalacion;
+    private List<Horario> horarios;
 }
