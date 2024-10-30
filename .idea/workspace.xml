@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bb4e27ee-fdfd-418b-862c-936fbe6d2197" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/modelo/Horario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/modelo/Horario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/modelo/Instalacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/modelo/Instalacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/modelo/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/modelo/Reserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/servicio/ServiciosUq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/reservasuq/servicio/ServiciosUq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/panelUsuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/panelUsuario.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/gestionarInstalaciones.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/gestionarInstalaciones.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +52,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "cambios",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Programacion-2/UniEventos-Project",
+    "last_opened_file_path": "C:/Proyectos Programacion-2/Seguimiento-3/ClinicaH",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

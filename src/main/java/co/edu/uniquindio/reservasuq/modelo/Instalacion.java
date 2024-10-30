@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class Instalacion {
-    private String nombre;
+    private String id;
     private int capacidadMaxima;
     private double costoExterno;
     private TipoInstalacion tipoInstalacion;
