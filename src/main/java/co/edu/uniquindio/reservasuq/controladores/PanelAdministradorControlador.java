@@ -22,8 +22,4 @@ public class PanelAdministradorControlador {
 
     }
 
-    public void gestionarHorarios(){
-        controladorPrincipal.cerrarVentana(buttonCerrarSesion);
-        controladorPrincipal.navegarVentana("/gestionarHorarios.fxml", "Gestión de horarios");
-    }
 }
