@@ -5,111 +5,114 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #b7cef8;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.reservasuq.controladores.GestionarInstalacionesControlador">
-    <children>
-        <Label layoutX="373.0" layoutY="25.0" text="MIS CONTACTOS">
-            <font>
-                <Font name="System Bold" size="21.0" />
-            </font>
-        </Label>
-        <Button fx:id="anadirContactoButton" layoutX="567.0" layoutY="113.0" mnemonicParsing="false" onAction="#anadirContacto" style="-fx-background-color: #c6f8b7;" text="Añadir Contacto ">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
-        <Button fx:id="editarContactoButton" layoutX="567.0" layoutY="153.0" mnemonicParsing="false" onAction="#editarContacto" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #f8e3b7;" text="Editar Contacto">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
-        <Button fx:id="eliminarContactoButton" layoutX="566.0" layoutY="195.0" mnemonicParsing="false" onAction="#eliminarContacto" style="-fx-background-color: #f86d6d;" text="Eliminar contacto">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Button>
-        <ComboBox fx:id="txtFiltro" layoutX="171.0" layoutY="306.0" prefHeight="26.0" prefWidth="146.0">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="NOMBRE" />
-                    <String fx:value="TELÉFONO" />
-                </FXCollections>
-            </items>
-        </ComboBox>
 
-        <Label layoutX="19.0" layoutY="309.0" text="Buscar contacto por: ">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-        <VBox layoutX="71.0" layoutY="88.0" prefHeight="160.0" prefWidth="451.0">
-            <children>
-                <GridPane prefHeight="164.0" prefWidth="475.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.20001220703125" minWidth="10.0" prefWidth="193.99998779296874" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.6000518798828" minWidth="10.0" prefWidth="365.2000122070313" />
-                    </columnConstraints>
-                    <rowConstraints>
-
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                    </rowConstraints>
-                    <children>
-                        <Label text="Nombre: ">
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Label>
-                        <Label text="Apellido:" GridPane.rowIndex="1" />
-                        <Label text="Número de teléfono:" GridPane.rowIndex="2" />
-                        <Label text="Día de cumpleaños:" GridPane.rowIndex="3" />
-                        <Label text="Correo Electrónico:" GridPane.rowIndex="4" />
-                        <Label text="URL de perfil:" GridPane.rowIndex="5" />
-                        <DatePicker fx:id="diaCumpleanos" prefHeight="26.0" prefWidth="365.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtNombre" prefHeight="26.0" prefWidth="323.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtApellido" prefHeight="25.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtTelefono" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtCorreo" prefHeight="40.0" prefWidth="278.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtUrl" prefHeight="35.0" prefWidth="421.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    </children>
-                </GridPane>
-            </children></VBox>
-        <ImageView fitHeight="59.0" fitWidth="79.0" layoutX="715.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@gratis-png-iconos-de-computadora-google-play-contactos-de-google-de-android-thumbnail.png" />
-            </image>
-        </ImageView>
-        <Button fx:id="buscarContactoButton" layoutX="501.0" layoutY="306.0" mnemonicParsing="false" onAction="#buscarContacto" style="-fx-background-color: #bff86d;" text="Buscar contacto" />
-        <TextField fx:id="txtBuscar" layoutX="343.0" layoutY="307.0" />
-        <Button fx:id="todosContactosButton" layoutX="620.0" layoutY="306.0" mnemonicParsing="false" onAction="#mostrarContactos" style="-fx-background-color: #6df8d0;" text="Mostrar todos los contactos" />
-        <TableView fx:id="tablaContactos" layoutX="19.0" layoutY="340.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="212.0" prefWidth="812.0">
-            <columns>
-                <TableColumn fx:id="colNombre" prefWidth="127.99999618530273" text="NOMBRE" />
-                <TableColumn fx:id="colApellido" prefWidth="97.60000610351562" text="APELLIDO" />
-                <TableColumn fx:id="colTelefono" minWidth="0.0" prefWidth="102.40003967285156" text="TELÉFONO" />
-                <TableColumn fx:id="colCumpleanos" prefWidth="152.79998779296875" text="CUMPLEAÑOS" />
-                <TableColumn fx:id="colCorreo" minWidth="0.0" prefWidth="180.0" text="CORREO ELECTRÓNICO" />
-                <TableColumn fx:id="colPerfil" prefWidth="148.80010986328125" text="FOTO DE PERFIL" />
-            </columns>
-        </TableView>
-    </children>
-</AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="636.0" style="-fx-background-color: #ecb6fc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="35.0" prefWidth="575.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="611.0" text="GESTIONAR INSTALACIONES">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <GridPane prefHeight="164.0" prefWidth="475.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.20001220703125" minWidth="10.0" prefWidth="193.99998779296874" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.6000518798828" minWidth="10.0" prefWidth="365.2000122070313" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Id: ">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Capacidad  máxima:" GridPane.rowIndex="1" />
+                  <Label text="Costo externo:" GridPane.rowIndex="2" />
+                  <Label text="Tipo Instalación:" GridPane.rowIndex="3" />
+                  <Label text="Horarios:" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtNombre" prefHeight="26.0" prefWidth="323.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtApellido" prefHeight="25.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtTelefono" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox prefHeight="25.0" prefWidth="316.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <Button fx:id="anadirContactoButton" mnemonicParsing="false" onAction="#anadirContacto" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #c6f8b7;" text="Añadir instalación">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="editarContactoButton" mnemonicParsing="false" onAction="#editarContacto" prefHeight="30.0" prefWidth="51.0" style="-fx-background-color: #f8e3b7;" text="Editar instalación">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="eliminarContactoButton" mnemonicParsing="false" onAction="#eliminarContacto" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #f86d6d;" text="Eliminar instalación">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="112.0" prefWidth="636.0">
+         <children>
+            <HBox prefHeight="91.0" prefWidth="636.0">
+               <children>
+                  <Label text="Buscar Instalacion por:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="txtFiltro" prefHeight="26.0" prefWidth="146.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="NOMBRE" />
+                           <String fx:value="TELÉFONO" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <TextField fx:id="txtBuscar" />
+                  <Button fx:id="buscarContactoButton" mnemonicParsing="false" onAction="#buscarContacto" prefHeight="25.0" prefWidth="74.0" style="-fx-background-color: #bff86d;" text="Buscar Instalacion" />
+                  <Button fx:id="todosContactosButton" mnemonicParsing="false" onAction="#mostrarContactos" style="-fx-background-color: #6df8d0;" text="Mostrar Instalaciones" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="146.0" prefWidth="636.0">
+         <children>
+            <TableView fx:id="tablaContactos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="219.0" prefWidth="626.0">
+               <columns>
+                  <TableColumn fx:id="colNombre" prefWidth="120.0" text="Id" />
+                  <TableColumn fx:id="colApellido" prefWidth="144.0" text="Capacidad  máxima" />
+                  <TableColumn fx:id="colTelefono" minWidth="0.0" prefWidth="153.0" text="Costo externo" />
+                  <TableColumn fx:id="colCumpleanos" prefWidth="130.0" text="Tipo Instalación" />
+                  <TableColumn fx:id="colCorreo" minWidth="0.0" prefWidth="162.0" text="Horarios" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+</VBox>
