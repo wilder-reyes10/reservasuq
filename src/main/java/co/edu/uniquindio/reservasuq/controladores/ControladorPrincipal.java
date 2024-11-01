@@ -1,5 +1,6 @@
 package co.edu.uniquindio.reservasuq.controladores;
 
+import co.edu.uniquindio.reservasuq.modelo.Horario;
 import co.edu.uniquindio.reservasuq.modelo.Persona;
 import co.edu.uniquindio.reservasuq.modelo.Reserva;
 import co.edu.uniquindio.reservasuq.modelo.ReservaPrincipal;
@@ -88,7 +89,7 @@ public class ControladorPrincipal implements ServiciosUq {
 
     @Override
     public List<Reserva> listarTodasReservas() {
-        return null;
+        return reservaPrincipal.listarTodasReservas();
     }
 
     @Override
@@ -119,7 +120,7 @@ public class ControladorPrincipal implements ServiciosUq {
 
 
     @Override
-    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, LocalDateTime horario) {
+    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) {
 
     }
 

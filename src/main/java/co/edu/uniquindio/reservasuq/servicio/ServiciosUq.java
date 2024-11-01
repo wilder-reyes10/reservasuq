@@ -1,5 +1,6 @@
 package co.edu.uniquindio.reservasuq.servicio;
 
+import co.edu.uniquindio.reservasuq.modelo.Horario;
 import co.edu.uniquindio.reservasuq.modelo.Persona;
 import co.edu.uniquindio.reservasuq.modelo.Reserva;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoInstalacion;
@@ -24,7 +25,7 @@ public interface ServiciosUq {
 
     void realizarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) throws Exception;
     void cancelarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha);
-    void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, LocalDateTime horario);
+    void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios);
     void eliminarInstalacion(TipoInstalacion tipoInstalacion);
     void modificarHorariosInstalacion(TipoInstalacion tipoInstalacion, LocalTime nuevoHorarioInicio, LocalTime nuevoHorarioFin);
 

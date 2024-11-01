@@ -135,7 +135,7 @@ public class ReservaPrincipal implements ServiciosUq {
 
 
     @Override
-    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, LocalDateTime horario) {
+    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) {
 
     }
 
