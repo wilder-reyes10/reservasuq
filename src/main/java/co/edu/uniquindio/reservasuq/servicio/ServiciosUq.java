@@ -25,7 +25,7 @@ public interface ServiciosUq {
     List<Reserva> listarReservasPorPersona(String cedulaPersona);
     List<Instalacion> listarInstalaciones();
 
-    Instalacion editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception;
+    void editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception;
 
     void realizarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) throws Exception;
     void cancelarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha);

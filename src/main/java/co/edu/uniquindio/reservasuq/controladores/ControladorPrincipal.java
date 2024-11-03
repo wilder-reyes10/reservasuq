@@ -114,8 +114,8 @@ public class ControladorPrincipal implements ServiciosUq {
 
 
     @Override
-    public Instalacion editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception {
-         return reservaPrincipal.editarInstalacion(tipoInstalacion, capacidadMaxima, costoExterno, horarios, id);
+    public void editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception {
+        reservaPrincipal.editarInstalacion(tipoInstalacion, capacidadMaxima, costoExterno, horarios, id);
     }
 
     @Override

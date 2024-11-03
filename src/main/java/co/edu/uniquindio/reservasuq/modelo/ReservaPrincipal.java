@@ -151,12 +151,7 @@ public class ReservaPrincipal implements ServiciosUq {
 
 
     @Override
-    public Instalacion editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception {
-        // Validación del ID
-        if (id == null || id.isEmpty()) {
-            throw new Exception("El ID de la instalación es obligatorio");
-        }
-
+    public void editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception {
         // Buscar la posición de la instalación en la lista
         int posInstalacion = obtenerInstalacion(id);
         if (posInstalacion == -1) {
@@ -171,20 +166,13 @@ public class ReservaPrincipal implements ServiciosUq {
         if (horarios == null || horarios.isEmpty()) {
             throw new Exception("La lista de horarios no puede estar vacía");
         }
-
-        // Obtener la instalación a editar
         Instalacion instalacionGuardada = instalaciones.get(posInstalacion);
-
-        // Actualizar los valores de la instalación
         instalacionGuardada.setTipoInstalacion(tipoInstalacion);
         instalacionGuardada.setCapacidadMaxima(capacidadMaxima);
         instalacionGuardada.setCostoExterno(costoExterno);
         instalacionGuardada.setHorarios(horarios);
-
-        // Actualizar la instalación en la lista
+        //Actualiza la nota en la lista de notas
         instalaciones.set(posInstalacion, instalacionGuardada);
-
-        return instalacionGuardada;
     }
 
     @Override

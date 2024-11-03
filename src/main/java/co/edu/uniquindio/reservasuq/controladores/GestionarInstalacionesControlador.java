@@ -120,11 +120,6 @@ public class GestionarInstalacionesControlador implements Initializable {
             }
         });
     }
-    private void cargarInstalaciones() {
-        instalacionesObservable.setAll(controladorPrincipal.listarInstalaciones());
-        tablaInstalaciones.setItems(instalacionesObservable);
-    }
-
     @FXML
     void anadirInstalacion(ActionEvent event) throws Exception {
 
@@ -134,8 +129,9 @@ public class GestionarInstalacionesControlador implements Initializable {
                 tipoInstalacionBox.getValue(),
                 Integer.parseInt(capacidadMField.getText()),
                 Double.parseDouble(costoExternoField.getText()),
-                horarios
+                new ArrayList<>(horarios)
         );
+            horarios.clear();
             limpiarCampos();
             actualizarInstalaciones();
             controladorPrincipal.mostrarAlerta("Instalación creada con éxito", Alert.AlertType.INFORMATION);
@@ -192,6 +188,10 @@ public class GestionarInstalacionesControlador implements Initializable {
             controladorPrincipal.mostrarAlerta("Debe seleccionar una instalacion de la lista de Instalaciones", Alert.AlertType.WARNING);
         }
 
+    }
+    private void cargarInstalaciones() {
+        instalacionesObservable.setAll(controladorPrincipal.listarInstalaciones());
+        tablaInstalaciones.setItems(instalacionesObservable);
     }
 
     @FXML
