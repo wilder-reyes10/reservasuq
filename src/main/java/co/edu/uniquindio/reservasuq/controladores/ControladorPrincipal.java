@@ -1,9 +1,6 @@
 package co.edu.uniquindio.reservasuq.controladores;
 
-import co.edu.uniquindio.reservasuq.modelo.Horario;
-import co.edu.uniquindio.reservasuq.modelo.Persona;
-import co.edu.uniquindio.reservasuq.modelo.Reserva;
-import co.edu.uniquindio.reservasuq.modelo.ReservaPrincipal;
+import co.edu.uniquindio.reservasuq.modelo.*;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoInstalacion;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoUsuario;
 import co.edu.uniquindio.reservasuq.servicio.ServiciosUq;
@@ -16,9 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorPrincipal implements ServiciosUq {
@@ -98,14 +93,29 @@ public class ControladorPrincipal implements ServiciosUq {
     }
 
     @Override
+    public List<String> listarInstalacionesCombo() {
+        return reservaPrincipal.listarInstalacionesCombo();
+    }
+
+    @Override
+    public List<Instalacion> buscarInstalaciones(TipoInstalacion tipoInstalacion) throws Exception {
+        return reservaPrincipal.buscarInstalaciones(tipoInstalacion);
+    }
+
+    @Override
     public List<Reserva> listarReservasPorPersona(String cedulaPersona) {
         return null;
     }
 
+    @Override
+    public List<Instalacion> listarInstalaciones() {
+        return reservaPrincipal.listarInstalaciones();
+    }
+
 
     @Override
-    public void editarInstalacion(TipoInstalacion tipoInstalacion, int nuevaCapacidadMaxima, double nuevoCostoExterno, LocalDateTime horario) throws Exception {
-
+    public Instalacion editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception {
+         return reservaPrincipal.editarInstalacion(tipoInstalacion, capacidadMaxima, costoExterno, horarios, id);
     }
 
     @Override
@@ -120,13 +130,13 @@ public class ControladorPrincipal implements ServiciosUq {
 
 
     @Override
-    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) {
-
+    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) throws Exception {
+        reservaPrincipal.crearInstalacion(tipoInstalacion, capacidadMaxima, costoExterno, horarios);
     }
 
     @Override
-    public void eliminarInstalacion(TipoInstalacion tipoInstalacion) {
-
+    public void eliminarInstalacion(String id) throws Exception {
+        reservaPrincipal.eliminarInstalacion(id);
     }
 
     @Override

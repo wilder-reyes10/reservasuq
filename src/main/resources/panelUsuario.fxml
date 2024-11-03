@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="819.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.reservasuq.controladores.PanelUsuarioControlador">
+<TabPane fx:id="TabPaneUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="819.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.reservasuq.controladores.PanelUsuarioControlador">
    <tabs>
-      <Tab text="Crear reserva">
+      <Tab fx:id="TabCrearReserva" text="Crear reserva">
 
          <VBox prefHeight="562.0" prefWidth="819.0" style="-fx-padding: 30.0; -fx-background-color: #ecb6fc;">
             <children>
@@ -30,16 +18,19 @@
                         </font>
                      </Label>
                      <Region prefHeight="200.0" prefWidth="200.0" />
-                     <Button fx:id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
+                     <Button fx:id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="47.0" prefWidth="144.0" text="Cerrar Sesión">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font></Button>
                   </children>
                </HBox>
-               <HBox prefHeight="100.0" prefWidth="200.0">
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 30;">
                   <children>
-                     <Label prefHeight="18.0" prefWidth="325.0" />
-                     <Label prefHeight="18.0" prefWidth="239.0" />
+                     <Label fx:id="labelNombre" prefHeight="18.0" prefWidth="325.0" />
+                     <Label fx:id="labelUsuario" prefHeight="18.0" prefWidth="239.0" />
                   </children>
                </HBox>
-               <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 20.0;">
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 20.0;">
                   <children>
                      <GridPane hgap="20.0" prefHeight="103.0" prefWidth="346.0" vgap="20.0">
                         <columnConstraints>
@@ -59,24 +50,13 @@
                               <font>
                                  <Font size="15.0" />
                               </font></Label>
-                           <ComboBox prefHeight="26.0" prefWidth="173.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           <DatePicker GridPane.columnIndex="1" />
+                           <ComboBox fx:id="cbHora" prefHeight="26.0" prefWidth="173.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <DatePicker fx:id="fechaDate" GridPane.columnIndex="1" />
                         </children>
                      </GridPane>
-                     <Region prefHeight="200.0" prefWidth="200.0" />
-                     <VBox prefHeight="130.0" prefWidth="267.0" spacing="10.0">
+                     <VBox alignment="CENTER" prefHeight="130.0" prefWidth="267.0" spacing="10.0">
                         <children>
-                           <Button fx:id="crearReserva" mnemonicParsing="false" onAction="#crearReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #c6f8b7;" text="Reservar">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Button>
-                           <Button fx:id="editarReserva" mnemonicParsing="false" onAction="#editarReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #f8e3b7;" text="Editar reserva">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Button>
-                           <Button fx:id="eliminarReserva" mnemonicParsing="false" onAction="#eliminarReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #f86d6d;" text="Eliminar Reserva">
+                           <Button fx:id="crearReserva" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#crearReserva" prefHeight="30.0" prefWidth="230.0" style="-fx-background-color: #c6f8b7;" text="Reservar">
                               <font>
                                  <Font name="System Bold" size="14.0" />
                               </font>
@@ -88,17 +68,18 @@
                <HBox alignment="CENTER" prefHeight="70.0" prefWidth="774.0" style="-fx-padding: 30.0; -fx-spacing: 30.0;" />
                <TableView fx:id="tablaContactos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="246.0" prefWidth="752.0">
                   <columns>
-                     <TableColumn fx:id="colApellido" prefWidth="138.4000244140625" text="ID RESERVA" />
-                     <TableColumn fx:id="colTelefono" minWidth="0.0" prefWidth="194.4000244140625" text="TIPO DE INSTALACIÓN" />
-                     <TableColumn fx:id="colCumpleanos" prefWidth="160.0" text="FECHA DE RESERVA" />
-                     <TableColumn fx:id="colCorreo" minWidth="0.0" prefWidth="174.4000244140625" text="HORA DE RESERVA" />
+                     <TableColumn fx:id="colId" prefWidth="138.4000244140625" text="ID " />
+                     <TableColumn fx:id="colCapacidad" minWidth="0.0" prefWidth="194.4000244140625" text="CAPACIDAD MÁXIMA" />
+                     <TableColumn fx:id="colCosto" prefWidth="160.0" text="COSTO PARA EXTERNOS" />
+                     <TableColumn fx:id="colTipoInstalacion" minWidth="0.0" prefWidth="157.19998168945312" text="TIPO DE INSTALACIÓN" />
+                     <TableColumn fx:id="colHorario" prefWidth="99.2000732421875" text="HORARIO" />
                   </columns>
                </TableView>
             </children>
          </VBox>
 
       </Tab>
-      <Tab text="Historial reservas">
+      <Tab fx:id="TabHistorialReservas" text="Historial reservas">
          <content>
             <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ecb6fc; -fx-padding: 30.0;">
                <children>
@@ -111,25 +92,29 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="798.0" style="-fx-padding: 20; -fx-spacing: 10;">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="798.0" style="-fx-padding: 20; -fx-spacing: 10;">
                      <children>
                         <Label text="Tipo de instalación" />
-                        <ComboBox prefWidth="150.0" />
-                        <Label text="Fecha de reserva" />
-                        <DatePicker />
+                        <ComboBox fx:id="cbTipoInstalacion" prefWidth="150.0" />
                         <VBox prefHeight="60.0" prefWidth="133.0" style="-fx-spacing: 10};">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Buscar mis reservas" />
-                              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="192.0" text="Listar las reservas" />
+                              <Button fx:id="btBuscarReservas" mnemonicParsing="false" onAction="#buscarReservas" prefHeight="26.0" prefWidth="194.0" text="Buscar mis reservas" />
+                              <Button fx:id="btListarReservas" mnemonicParsing="false" onAction="#listarReservas" prefHeight="26.0" prefWidth="192.0" text="Listar las reservas" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="62.0" prefWidth="116.0" style="-fx-spacing: 10;">
+                           <children>
+                              <Button fx:id="btEditarReservas" mnemonicParsing="false" onAction="#editarReserva" prefHeight="26.0" prefWidth="109.0" text="Editar reserva" />
+                              <Button fx:id="btEliminarReservas" mnemonicParsing="false" onAction="#eliminarReserva" prefHeight="26.0" prefWidth="110.0" text="Eliminar reserva" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                   <TableView prefHeight="292.0" prefWidth="758.0" style="-fx-padding: 0;">
                     <columns>
-                      <TableColumn prefWidth="228.00001182556116" style="-fx-background-color: #ce3ff8;" text="Tipo de Instalación" />
-                      <TableColumn prefWidth="253.60000610351562" style="-fx-background-color: #ce3ff8;" text="Fecha de reserva" />
-                        <TableColumn prefWidth="275.99993896484375" style="-fx-background-color: #ce3ff8;" text="Hora de reserva" />
+                      <TableColumn fx:id="colTipoInstalacion" prefWidth="228.00001182556116" style="-fx-background-color: #ce3ff8;" text="Tipo de Instalación" />
+                      <TableColumn fx:id="colFechaReserva" prefWidth="253.60000610351562" style="-fx-background-color: #ce3ff8;" text="Fecha de reserva" />
+                        <TableColumn fx:id="colHoraReserva" prefWidth="275.99993896484375" style="-fx-background-color: #ce3ff8;" text="Hora de reserva" />
                     </columns>
                   </TableView>
                </children>

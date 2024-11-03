@@ -12,7 +12,12 @@ import java.time.LocalTime;
 @Getter
 @AllArgsConstructor
 public class Horario {
-    private String dia;
+    private String diaSemana;
     private LocalTime horaInicio;
     private LocalTime horaFin;
+
+    @Override
+    public String toString() {
+        return diaSemana + " " + horaInicio + " - " + horaFin;
+    }
 }

@@ -4,12 +4,11 @@ import co.edu.uniquindio.reservasuq.modelo.enums.TipoInstalacion;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoUsuario;
 import co.edu.uniquindio.reservasuq.servicio.ServiciosUq;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ReservaPrincipal implements ServiciosUq {
     private static final String ADMIN_EMAIL = "admin@uq.edu.co"; // Email del administrador
@@ -25,6 +24,7 @@ public class ReservaPrincipal implements ServiciosUq {
         instalaciones = new ArrayList<Instalacion>();
         reservas = new ArrayList<Reserva>();
     }
+
     @Override
     public Persona registrarUsuario(String cedula, String nombre, String correoInstitucional, String contrasena, TipoUsuario tipoUsuario) throws Exception {
         if (cedula == null || cedula.isBlank()) {
@@ -57,7 +57,7 @@ public class ReservaPrincipal implements ServiciosUq {
                     .build();
 
             personas.add(persona);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 
@@ -102,24 +102,89 @@ public class ReservaPrincipal implements ServiciosUq {
 
     @Override
     public ArrayList<String> listarOpciones() {
-            ArrayList<String> categorias = new ArrayList<>();
-            categorias.add("ESTUDIANTE");
-            categorias.add("PROFESOR");
-            categorias.add("PERSONAL ADMINISTRATIVO");
-            categorias.add("EXTERNO");
+        ArrayList<String> categorias = new ArrayList<>();
+        categorias.add("ESTUDIANTE");
+        categorias.add("PROFESOR");
+        categorias.add("PERSONAL ADMINISTRATIVO");
+        categorias.add("EXTERNO");
 
-            return categorias;
-        }
+        return categorias;
+    }
+    @Override
+    public ArrayList<String> listarInstalacionesCombo(){
+        ArrayList<String> instalaciones = new ArrayList<>();
+        instalaciones.add("PISCINA");
+        instalaciones.add("GIMNASIO");
+        instalaciones.add("CANCHA FUTBOL");
+        instalaciones.add("CANCHA BALONCESTO");
+        instalaciones.add("AULAS ESTUDIO");
+        instalaciones.add("SALON EVENTOS");
+
+        return instalaciones;
+    }
 
     @Override
     public List<Reserva> listarReservasPorPersona(String cedulaPersona) {
         return null;
     }
 
+    @Override
+    public List<Instalacion> listarInstalaciones() {
+        return instalaciones;
+    }
+    @Override
+    public List<Instalacion> buscarInstalaciones(TipoInstalacion tipoInstalacion) throws Exception {
+        List<Instalacion> instalacionesFiltradas = new ArrayList<>();
+
+        if (tipoInstalacion == null) {
+            throw new Exception("Debe seleccionar un tipo de instalación");
+        }
+
+        for (Instalacion instalacion : instalaciones) {
+            if (instalacion.getTipoInstalacion().equals(tipoInstalacion)) {
+                instalacionesFiltradas.add(instalacion);
+            }
+        }
+
+        return instalacionesFiltradas;
+    }
+
 
     @Override
-    public void editarInstalacion(TipoInstalacion tipoInstalacion, int nuevaCapacidadMaxima, double nuevoCostoExterno, LocalDateTime horario) throws Exception {
+    public Instalacion editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception {
+        // Validación del ID
+        if (id == null || id.isEmpty()) {
+            throw new Exception("El ID de la instalación es obligatorio");
+        }
 
+        // Buscar la posición de la instalación en la lista
+        int posInstalacion = obtenerInstalacion(id);
+        if (posInstalacion == -1) {
+            throw new Exception("No existe una instalación con el ID proporcionado");
+        }
+        if (capacidadMaxima <= 0) {
+            throw new Exception("La capacidad máxima debe ser mayor a cero");
+        }
+        if (costoExterno < 0) {
+            throw new Exception("El costo externo no puede ser negativo");
+        }
+        if (horarios == null || horarios.isEmpty()) {
+            throw new Exception("La lista de horarios no puede estar vacía");
+        }
+
+        // Obtener la instalación a editar
+        Instalacion instalacionGuardada = instalaciones.get(posInstalacion);
+
+        // Actualizar los valores de la instalación
+        instalacionGuardada.setTipoInstalacion(tipoInstalacion);
+        instalacionGuardada.setCapacidadMaxima(capacidadMaxima);
+        instalacionGuardada.setCostoExterno(costoExterno);
+        instalacionGuardada.setHorarios(horarios);
+
+        // Actualizar la instalación en la lista
+        instalaciones.set(posInstalacion, instalacionGuardada);
+
+        return instalacionGuardada;
     }
 
     @Override
@@ -133,16 +198,54 @@ public class ReservaPrincipal implements ServiciosUq {
     }
 
 
-
     @Override
-    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) {
+    public void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) throws Exception {
+        // Validaciones
+        if (tipoInstalacion == null) {
+            throw new Exception("El tipo de instalación es obligatorio");
+        }
+        if (capacidadMaxima <= 0) {
+            throw new Exception("La capacidad máxima debe ser mayor a cero");
+        }
+        if (costoExterno < 0) {
+            throw new Exception("El costo externo no puede ser negativo");
+        }
+        if (horarios == null || horarios.isEmpty()) {
+            throw new Exception("La lista de horarios no puede estar vacía");
+        }
 
+        // Creación de la instalación
+        Instalacion instalacion = Instalacion.builder()
+                .id(UUID.randomUUID().toString()) // Genera un id aleatorio
+                .tipoInstalacion(tipoInstalacion)
+                .capacidadMaxima(capacidadMaxima)
+                .costoExterno(costoExterno)
+                .horarios(horarios)
+                .build();
+
+        instalaciones.add(instalacion);
+    }
+@Override
+    public void eliminarInstalacion(String id) throws Exception{
+        int posNota = obtenerInstalacion(id);
+
+        if(posNota == -1){
+            throw new Exception("No existe el id proporcionado");
+        }
+
+        instalaciones.remove( instalaciones.get(posNota) );
+    }
+    private int obtenerInstalacion(String id){
+
+        for (int i = 0; i < instalaciones.size(); i++) {
+            if( instalaciones.get(i).getId().equals(id) ){
+                return i;
+            }
+        }
+
+        return -1;
     }
 
-    @Override
-    public void eliminarInstalacion(TipoInstalacion tipoInstalacion) {
-
-    }
 
     @Override
     public void modificarHorariosInstalacion(TipoInstalacion tipoInstalacion, LocalTime nuevoHorarioInicio, LocalTime nuevoHorarioFin) {

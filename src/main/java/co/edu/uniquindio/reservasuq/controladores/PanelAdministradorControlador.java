@@ -13,7 +13,9 @@ public class PanelAdministradorControlador {
     }
 
     public void gestionarInstalaciones(){
+        controladorPrincipal.cerrarVentana(buttonCerrarSesion);
         controladorPrincipal.navegarVentana("/gestionarInstalaciones.fxml", "Gestion de instalaciones");
+
     }
 
     public  void  cerrarSesion(){

@@ -35,9 +35,11 @@ public class IniciarSesionControlador {
             // Verificar si es un administrador
             if (esAdmin && persona.getNombre().equals("Administrador")) {
                 controladorPrincipal.navegarVentana("/panelAdministrador.fxml", "Panel Administrador");
+                controladorPrincipal.cerrarVentana(txtEmail);
             } else if (!esAdmin && persona != null) {
                 Sesion.getInstanciaSesion().setPersona(persona);
                 controladorPrincipal.navegarVentana("/panelUsuario.fxml", "Panel Usuario");
+                controladorPrincipal.cerrarVentana(txtEmail);
             } else {
                 controladorPrincipal.mostrarAlerta("Credenciales incorrectas", Alert.AlertType.ERROR);
             }
