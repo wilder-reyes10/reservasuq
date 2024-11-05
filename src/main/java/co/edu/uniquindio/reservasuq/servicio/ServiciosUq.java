@@ -21,17 +21,20 @@ public interface ServiciosUq {
 
     List<Instalacion> buscarInstalaciones(TipoInstalacion tipoInstalacion) throws Exception;
 
+    List<Reserva> buscarReservas(TipoInstalacion tipoInstalacion) throws Exception;
+
 
     List<Reserva> listarReservasPorPersona(String cedulaPersona);
     List<Instalacion> listarInstalaciones();
 
     void editarInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios, String id) throws Exception;
 
-    void realizarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) throws Exception;
+    void realizarReserva(TipoUsuario tipoUsuario, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora, Instalacion instalacion, String correoInstitucional) throws Exception;
     void cancelarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha);
     void crearInstalacion(TipoInstalacion tipoInstalacion, int capacidadMaxima, double costoExterno, List<Horario> horarios) throws Exception;
     void eliminarInstalacion(String id) throws Exception;
-    void modificarHorariosInstalacion(TipoInstalacion tipoInstalacion, LocalTime nuevoHorarioInicio, LocalTime nuevoHorarioFin);
+    List<String> generarHorarios();
+    boolean estaDisponible(TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora);
 
 
 }

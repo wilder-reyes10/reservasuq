@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -26,8 +28,8 @@
                </HBox>
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 30;">
                   <children>
-                     <Label fx:id="labelNombre" prefHeight="18.0" prefWidth="325.0" />
-                     <Label fx:id="labelUsuario" prefHeight="18.0" prefWidth="239.0" />
+                     <Label fx:id="labelNombre" prefHeight="18.0" prefWidth="325.0" text="Usuario, bienvenid@ a reservas uq" />
+                     <Label fx:id="labelUsuario" prefHeight="18.0" prefWidth="239.0" text="Usted es: USUARIO" />
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 20.0;">
@@ -65,14 +67,28 @@
                      </VBox>
                   </children>
                </HBox>
-               <HBox alignment="CENTER" prefHeight="70.0" prefWidth="774.0" style="-fx-padding: 30.0; -fx-spacing: 30.0;" />
-               <TableView fx:id="tablaContactos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="246.0" prefWidth="752.0">
+               <HBox alignment="CENTER" prefHeight="70.0" prefWidth="774.0" style="-fx-padding: 30.0; -fx-spacing: 30.0;">
+                  <children>
+                     <Label text="Tipo de instalación">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <ComboBox fx:id="filtroBox" prefHeight="26.0" prefWidth="136.0">
+                        <items>
+                           <FXCollections fx:factory="observableArrayList">
+                           </FXCollections>
+                        </items>
+                     </ComboBox>
+                     <Button mnemonicParsing="false" onAction="#buscar" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #bff86d;" text="Buscar Instalacion" />
+                     <Button mnemonicParsing="false" onAction="#mostrar" style="-fx-background-color: #6df8d0;" text="Mostrar Instalaciones" />
+                  </children></HBox>
+               <TableView fx:id="tablaInstalaciones" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="246.0" prefWidth="752.0">
                   <columns>
-                     <TableColumn fx:id="colId" prefWidth="138.4000244140625" text="ID " />
                      <TableColumn fx:id="colCapacidad" minWidth="0.0" prefWidth="194.4000244140625" text="CAPACIDAD MÁXIMA" />
-                     <TableColumn fx:id="colCosto" prefWidth="160.0" text="COSTO PARA EXTERNOS" />
-                     <TableColumn fx:id="colTipoInstalacion" minWidth="0.0" prefWidth="157.19998168945312" text="TIPO DE INSTALACIÓN" />
-                     <TableColumn fx:id="colHorario" prefWidth="99.2000732421875" text="HORARIO" />
+                     <TableColumn fx:id="colCosto" prefWidth="211.99998474121094" text="COSTO PARA EXTERNOS" />
+                     <TableColumn fx:id="colTipoInstalacion1" minWidth="0.0" prefWidth="176.79998779296875" text="TIPO DE INSTALACIÓN" />
+                     <TableColumn fx:id="colHorario" prefWidth="166.5999755859375" text="HORARIO" />
                   </columns>
                </TableView>
             </children>
@@ -110,7 +126,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <TableView prefHeight="292.0" prefWidth="758.0" style="-fx-padding: 0;">
+                  <TableView fx:id="tablaHistorial" prefHeight="292.0" prefWidth="758.0" style="-fx-padding: 0;">
                     <columns>
                       <TableColumn fx:id="colTipoInstalacion" prefWidth="228.00001182556116" style="-fx-background-color: #ce3ff8;" text="Tipo de Instalación" />
                       <TableColumn fx:id="colFechaReserva" prefWidth="253.60000610351562" style="-fx-background-color: #ce3ff8;" text="Fecha de reserva" />

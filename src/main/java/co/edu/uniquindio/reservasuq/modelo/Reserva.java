@@ -1,5 +1,6 @@
 package co.edu.uniquindio.reservasuq.modelo;
 
+import co.edu.uniquindio.reservasuq.modelo.enums.TipoUsuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,10 +14,9 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Setter
 public class Reserva {
-    private Persona persona;
+    private TipoUsuario tipoUsuario;
     private Instalacion instalacion;
     private LocalDate fechaReserva;
-    private LocalTime horaInicio;
-    private boolean cancelada;
+    private LocalTime hora;
     private double costo;
 }

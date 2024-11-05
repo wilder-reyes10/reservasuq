@@ -24,9 +24,9 @@ public class IniciarSesionControlador {
 
     // Método para manejar el evento de inicio de sesión
     public void iniciarSesion(ActionEvent event) {
-        String email = txtEmail.getText();
-        String contrasena = txtContrasena.getText();
-        boolean esAdmin = txtValidar.isSelected(); // Verificar si la CheckBox está marcada (para admin)
+        String email = "admin@uq.edu.co";//txtEmail.getText();
+        String contrasena = "12345admin";//txtContrasena.getText();
+        boolean esAdmin = true; // txtValidar.isSelected(); // Verificar si la CheckBox está marcada (para admin)
 
         try {
             // Llamar al método iniciarSesion de ReservaPrincipal

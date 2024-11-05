@@ -23,6 +23,9 @@ public class GestionarInstalacionesControlador implements Initializable {
     private ComboBox<TipoInstalacion> tipoInstalacionBox;
 
     @FXML
+    private ComboBox<Horario> horariosIntalacion;
+
+    @FXML
     private TextField capacidadMField;
 
     @FXML
@@ -90,7 +93,8 @@ public class GestionarInstalacionesControlador implements Initializable {
 
         //Inicializar lista observable y cargar las notas
         instalacionesObservable = FXCollections.observableArrayList();
-        cargarInstalaciones();
+        tablaInstalaciones.setItems(instalacionesObservable);
+        actualizarInstalaciones();
 
         //Evento click en la tabla
         tablaInstalaciones.setOnMouseClicked(e -> {
@@ -101,6 +105,8 @@ public class GestionarInstalacionesControlador implements Initializable {
                 // Llenar campos de texto básicos
                 capacidadMField.setText(String.valueOf(instalacionSeleccionada.getCapacidadMaxima()));
                 costoExternoField.setText(String.valueOf(instalacionSeleccionada.getCostoExterno()));
+                tipoInstalacionBox.setValue(instalacionSeleccionada.getTipoInstalacion());
+                horariosIntalacion.setItems(FXCollections.observableArrayList(instalacionSeleccionada.getHorarios()));
 
                 // Verificar si hay al menos un horario en la lista
                 List<Horario> horarios = instalacionSeleccionada.getHorarios();
@@ -111,6 +117,7 @@ public class GestionarInstalacionesControlador implements Initializable {
                     diaSemana.setText(primerHorario.getDiaSemana());
                     horaInicio.setText(String.valueOf(primerHorario.getHoraInicio()));
                     horaFin.setText(String.valueOf(primerHorario.getHoraFin()));
+                    this.horarios = horarios;
                 } else {
                     // Si no hay horarios, limpiar los campos correspondientes
                     diaSemana.clear();
@@ -119,6 +126,15 @@ public class GestionarInstalacionesControlador implements Initializable {
                 }
             }
         });
+
+        horariosIntalacion.valueProperty().addListener((obs, oldItem, newItem) -> {
+            if(newItem != null){
+                diaSemana.setText(newItem.getDiaSemana());
+                horaInicio.setText(String.valueOf(newItem.getHoraInicio()));
+                horaFin.setText(String.valueOf(newItem.getHoraFin()));
+            }
+        });
+
     }
     @FXML
     void anadirInstalacion(ActionEvent event) throws Exception {
@@ -136,13 +152,17 @@ public class GestionarInstalacionesControlador implements Initializable {
             actualizarInstalaciones();
             controladorPrincipal.mostrarAlerta("Instalación creada con éxito", Alert.AlertType.INFORMATION);
             limpiarCampos();
-            tablaInstalaciones.setItems( FXCollections.observableArrayList(controladorPrincipal.listarInstalaciones()) );
+            //tablaInstalaciones.setItems( FXCollections.observableArrayList(controladorPrincipal.listarInstalaciones()) );
         }catch (Exception ex){
             controladorPrincipal.mostrarAlerta(ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
     public void actualizarInstalaciones() {
         instalacionesObservable.setAll(controladorPrincipal.listarInstalaciones());
+    }
+
+    public void cargarInstalaciones(List<Instalacion> filtro) {
+        instalacionesObservable.setAll(filtro);
     }
 
     @FXML
@@ -155,7 +175,8 @@ public class GestionarInstalacionesControlador implements Initializable {
             TipoInstalacion tipoInstalacion = TipoInstalacion.valueOf(filtroSinEspacios);
 
             List<Instalacion> instalacionesFiltradas = controladorPrincipal.buscarInstalaciones(tipoInstalacion);
-            tablaInstalaciones.setItems(FXCollections.observableArrayList(instalacionesFiltradas));
+            cargarInstalaciones(instalacionesFiltradas);
+            //tablaInstalaciones.setItems(FXCollections.observableArrayList(instalacionesFiltradas));
         } catch (IllegalArgumentException e) {
             controladorPrincipal.mostrarAlerta("El filtro seleccionado no es válido", Alert.AlertType.ERROR);
         } catch (Exception e) {
@@ -179,7 +200,7 @@ public class GestionarInstalacionesControlador implements Initializable {
                 );
 
                 limpiarCampos();
-                cargarInstalaciones();
+                actualizarInstalaciones();
                 controladorPrincipal.mostrarAlerta("Instalación actualizada con éxito", Alert.AlertType.INFORMATION);
             } catch (Exception ex) {
                 controladorPrincipal.mostrarAlerta(ex.getMessage(), Alert.AlertType.ERROR);
@@ -189,9 +210,9 @@ public class GestionarInstalacionesControlador implements Initializable {
         }
 
     }
-    private void cargarInstalaciones() {
-        instalacionesObservable.setAll(controladorPrincipal.listarInstalaciones());
-        tablaInstalaciones.setItems(instalacionesObservable);
+    public void volver(){
+        controladorPrincipal.navegarVentana("/panelAdministrador.fxml", "Panel del administrador");
+        controladorPrincipal.cerrarVentana(horaFin);
     }
 
     @FXML
@@ -214,7 +235,7 @@ public class GestionarInstalacionesControlador implements Initializable {
                 limpiarCampos();
                 actualizarInstalaciones();
                 controladorPrincipal.mostrarAlerta("Instalación eliminada con éxito", Alert.AlertType.INFORMATION);
-                tablaInstalaciones.setItems(FXCollections.observableArrayList(controladorPrincipal.listarInstalaciones()));
+                //tablaInstalaciones.setItems(FXCollections.observableArrayList(controladorPrincipal.listarInstalaciones()));
             }
 
         } catch (Exception ex) {
@@ -225,12 +246,12 @@ public class GestionarInstalacionesControlador implements Initializable {
 
     @FXML
     void mostrarInstalaciones(ActionEvent event) {
-            // Obtiene todos los contactos disponibles en el modelo
-            List<Instalacion> todasLasInstalaciones = controladorPrincipal.listarInstalaciones();
-
+            // Obtiene todas las instalaciones disponibles en el modelo
+            //List<Instalacion> todasLasInstalaciones = controladorPrincipal.listarInstalaciones();
+        actualizarInstalaciones();
             // Actualiza la tabla con todos los contactos
-            tablaInstalaciones.setItems(FXCollections.observableArrayList(todasLasInstalaciones));
-        }
+            //tablaInstalaciones.setItems(FXCollections.observableArrayList(todasLasInstalaciones));
+    }
 
 
     public void agregarHorario(ActionEvent actionEvent) {
@@ -246,6 +267,7 @@ public class GestionarInstalacionesControlador implements Initializable {
         );
 
         horarios.add(horario);
+        horariosIntalacion.setItems(FXCollections.observableArrayList(horarios));
 
     }
     private void limpiarCampos(){
