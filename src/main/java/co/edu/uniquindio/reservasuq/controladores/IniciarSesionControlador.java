@@ -2,6 +2,7 @@ package co.edu.uniquindio.reservasuq.controladores;
 
 import co.edu.uniquindio.reservasuq.modelo.Persona;
 import co.edu.uniquindio.reservasuq.modelo.Sesion;
+import co.edu.uniquindio.reservasuq.modelo.enums.TipoUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -24,25 +25,28 @@ public class IniciarSesionControlador {
 
     // Método para manejar el evento de inicio de sesión
     public void iniciarSesion(ActionEvent event) {
-        String email = "admin@uq.edu.co";//txtEmail.getText();
-        String contrasena = "12345admin";//txtContrasena.getText();
-        boolean esAdmin = true; // txtValidar.isSelected(); // Verificar si la CheckBox está marcada (para admin)
+        String email = "pepe@email.com";//txtEmail.getText();
+        String contrasena = "123456";//txtContrasena.getText();
 
         try {
             // Llamar al método iniciarSesion de ReservaPrincipal
             Persona persona = controladorPrincipal.iniciarSesion(email, contrasena);
 
-            // Verificar si es un administrador
-            if (esAdmin && persona.getNombre().equals("Administrador")) {
-                controladorPrincipal.navegarVentana("/panelAdministrador.fxml", "Panel Administrador");
-                controladorPrincipal.cerrarVentana(txtEmail);
-            } else if (!esAdmin && persona != null) {
+            if(persona!=null){
+
                 Sesion.getInstanciaSesion().setPersona(persona);
-                controladorPrincipal.navegarVentana("/panelUsuario.fxml", "Panel Usuario");
+
+                if(persona.getTipoUsuario() == TipoUsuario.ADMINISTRADOR){
+                    controladorPrincipal.navegarVentana("/panelAdministrador.fxml", "Panel Administrador");
+                }else{
+                    controladorPrincipal.navegarVentana("/panelUsuario.fxml", "Panel Usuario");
+                }
                 controladorPrincipal.cerrarVentana(txtEmail);
-            } else {
+
+            }else{
                 controladorPrincipal.mostrarAlerta("Credenciales incorrectas", Alert.AlertType.ERROR);
             }
+
 
         } catch (Exception e) {
             controladorPrincipal.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

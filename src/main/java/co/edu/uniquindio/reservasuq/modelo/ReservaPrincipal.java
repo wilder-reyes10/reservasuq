@@ -24,6 +24,35 @@ public class ReservaPrincipal implements ServiciosUq {
         personas = new ArrayList<Persona>();
         instalaciones = new ArrayList<Instalacion>();
         reservas = new ArrayList<Reserva>();
+
+        crearDatosPrueba();
+    }
+
+    private void crearDatosPrueba(){
+
+        try {
+            registrarUsuario(
+                    "121212",
+                    "Pepito",
+                    "pepe@email.com",
+                    "123456",
+                    TipoUsuario.ESTUDIANTE
+            );
+
+            crearInstalacion(
+                    TipoInstalacion.GIMNASIO,
+                    2,
+                    2000,
+                    List.of(
+                            new Horario("martes", LocalTime.parse("07:00"), LocalTime.parse("18:00")),
+                            new Horario("jueves", LocalTime.parse("07:00"), LocalTime.parse("18:00"))
+                    )
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
@@ -73,7 +102,7 @@ public class ReservaPrincipal implements ServiciosUq {
     public Persona iniciarSesion(String correoInstitucional, String contrasena) throws Exception {
         // Verificar si el correo y la contraseña coinciden con las del administrador
         if (correoInstitucional.equals(ADMIN_EMAIL) && contrasena.equals(ADMIN_PASSWORD)) {
-            return new Persona("12345", "Administrador", ADMIN_EMAIL, ADMIN_PASSWORD, TipoUsuario.PERSONALADMINISTRATIVO);
+            return new Persona("12345", "Administrador", ADMIN_EMAIL, ADMIN_PASSWORD, TipoUsuario.ADMINISTRADOR);
         }
 
         // Si no es administrador, buscar el usuario en la lista de usuarios
@@ -127,7 +156,16 @@ public class ReservaPrincipal implements ServiciosUq {
         //HACE FALTA ESTE MÉTODO
     @Override
     public List<Reserva> listarReservasPorPersona(String cedulaPersona) {
-        return null;
+
+        List<Reserva> historial = new ArrayList<>();
+
+        for (Reserva reserva : reservas){
+            if(reserva.getPersona().getCedula().equals(cedulaPersona)){
+                historial.add(reserva);
+            }
+        }
+
+        return historial;
     }
 
     @Override
@@ -194,27 +232,37 @@ public class ReservaPrincipal implements ServiciosUq {
         instalaciones.set(posInstalacion, instalacionGuardada);
     }
     // Método para verificar si una instalación está disponible en una fecha y hora específicas
-    @Override
-    public boolean estaDisponible(TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora) {
-        for (Reserva reserva : reservas) {
-            if (reserva.getInstalacion().equals(tipoInstalacion) &&
-                    reserva.getFechaReserva().equals(fecha) &&
-                    reserva.getHora().equals(hora)) {
-                return false;
-            }
+    public boolean estaDisponible(Instalacion instalacion, LocalDate fecha, LocalTime hora) {
+
+        if ( contarReservas(instalacion.getTipoInstalacion(), fecha, hora) >= instalacion.getCapacidadMaxima() ) {
+            return false;
         }
+
         return true;
     }
 
+    private int contarReservas(TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora){
+        int contador = 0;
+        for (Reserva reserva : reservas) {
+            if (reserva.getInstalacion().getTipoInstalacion().equals(tipoInstalacion) &&
+                    reserva.getFechaReserva().equals(fecha) &&
+                    reserva.getHora().equals(hora)) {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
+
     @Override
-    public void realizarReserva(TipoUsuario tipoUsuario, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora, Instalacion instalacion, String correoInstitucional) throws Exception {
-        Persona persona = obtenerUsuarioEmail(correoInstitucional);
-        if (!estaDisponible(tipoInstalacion, fecha, hora)) {
+    public void realizarReserva(Persona persona, LocalDate fecha, LocalTime hora, Instalacion instalacion) throws Exception {
+
+        if (!estaDisponible(instalacion, fecha, hora)) {
             throw new Exception("La instalación no está disponible en la fecha y hora seleccionadas.");
         }
 
-        double costo = tipoUsuario == tipoUsuario.EXTERNO ? instalacion.getCostoExterno() : 0;
-        Reserva nuevaReserva = new Reserva(tipoUsuario, instalacion, fecha, hora, costo);
+        double costo = persona.getTipoUsuario() == TipoUsuario.EXTERNO ? instalacion.getCostoExterno() : 0;
+        Reserva nuevaReserva = new Reserva(persona, instalacion, fecha, hora, costo);
         reservas.add(nuevaReserva);
         String mensaje = String.format(
                 "Estimado/a %s,\n\n" +
@@ -227,15 +275,15 @@ public class ReservaPrincipal implements ServiciosUq {
                         "Gracias por utilizar nuestro sistema de reservas.\n" +
                         "Atentamente,\nEl equipo de Reservas",
                 persona.getNombre(),
-                tipoInstalacion,
+                instalacion.getTipoInstalacion(),
                 fecha.toString(),
                 hora.toString(),
-                tipoUsuario,
+                persona.getTipoUsuario(),
                 costo
         );
 
         // Enviar correo electrónico con los detalles de la reserva
-        enviarEmail(persona, mensaje, "Confirmación de Reserva");
+        //enviarEmail(persona, mensaje, "Confirmación de Reserva");
     }
 
     public Persona obtenerUsuarioEmail(String correoInstitucional) throws Exception {

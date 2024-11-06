@@ -10,4 +10,6 @@ module co.edu.uniquindio.reservasuq {
     exports co.edu.uniquindio.reservasuq;
     exports co.edu.uniquindio.reservasuq.controladores;
     opens co.edu.uniquindio.reservasuq.controladores to javafx.fxml;
+    exports co.edu.uniquindio.reservasuq.controladores.observer;
+    opens co.edu.uniquindio.reservasuq.controladores.observer to javafx.fxml;
 }

@@ -109,7 +109,7 @@ public class ControladorPrincipal implements ServiciosUq {
 
     @Override
     public List<Reserva> listarReservasPorPersona(String cedulaPersona) {
-        return null;
+        return reservaPrincipal.listarReservasPorPersona(cedulaPersona);
     }
 
     @Override
@@ -124,8 +124,8 @@ public class ControladorPrincipal implements ServiciosUq {
     }
 
     @Override
-    public void realizarReserva(TipoUsuario tipoUsuario, TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora, Instalacion instalacion, String correoInstitucional) throws Exception {
-        reservaPrincipal.realizarReserva(tipoUsuario, tipoInstalacion, fecha, hora, instalacion, correoInstitucional);
+    public void realizarReserva(Persona persona, LocalDate fecha, LocalTime hora, Instalacion instalacion) throws Exception {
+        reservaPrincipal.realizarReserva(persona, fecha, hora, instalacion);
 
     }
 
@@ -150,8 +150,4 @@ public class ControladorPrincipal implements ServiciosUq {
         return reservaPrincipal.generarHorarios();
     }
 
-    @Override
-    public boolean estaDisponible(TipoInstalacion tipoInstalacion, LocalDate fecha, LocalTime hora) {
-        return false;
-    }
 }

@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Setter
 public class Reserva {
-    private TipoUsuario tipoUsuario;
+    private Persona persona;
     private Instalacion instalacion;
     private LocalDate fechaReserva;
     private LocalTime hora;

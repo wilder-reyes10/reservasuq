@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -85,10 +84,10 @@
                   </children></HBox>
                <TableView fx:id="tablaInstalaciones" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="246.0" prefWidth="752.0">
                   <columns>
-                     <TableColumn fx:id="colCapacidad" minWidth="0.0" prefWidth="194.4000244140625" text="CAPACIDAD MÁXIMA" />
-                     <TableColumn fx:id="colCosto" prefWidth="211.99998474121094" text="COSTO PARA EXTERNOS" />
-                     <TableColumn fx:id="colTipoInstalacion1" minWidth="0.0" prefWidth="176.79998779296875" text="TIPO DE INSTALACIÓN" />
-                     <TableColumn fx:id="colHorario" prefWidth="166.5999755859375" text="HORARIO" />
+                     <TableColumn fx:id="colCapacidadInstalacion" minWidth="0.0" prefWidth="194.4000244140625" text="CAPACIDAD MÁXIMA" />
+                     <TableColumn fx:id="colCostoInstalacion" prefWidth="211.99998474121094" text="COSTO PARA EXTERNOS" />
+                     <TableColumn fx:id="colTipoInstalacion" minWidth="0.0" prefWidth="176.79998779296875" text="TIPO DE INSTALACIÓN" />
+                     <TableColumn fx:id="colHorarioInstalacion" prefWidth="166.5999755859375" text="HORARIO" />
                   </columns>
                </TableView>
             </children>
@@ -120,7 +119,6 @@
                         </VBox>
                         <VBox prefHeight="62.0" prefWidth="116.0" style="-fx-spacing: 10;">
                            <children>
-                              <Button fx:id="btEditarReservas" mnemonicParsing="false" onAction="#editarReserva" prefHeight="26.0" prefWidth="109.0" text="Editar reserva" />
                               <Button fx:id="btEliminarReservas" mnemonicParsing="false" onAction="#eliminarReserva" prefHeight="26.0" prefWidth="110.0" text="Eliminar reserva" />
                            </children>
                         </VBox>
@@ -128,9 +126,9 @@
                   </HBox>
                   <TableView fx:id="tablaHistorial" prefHeight="292.0" prefWidth="758.0" style="-fx-padding: 0;">
                     <columns>
-                      <TableColumn fx:id="colTipoInstalacion" prefWidth="228.00001182556116" style="-fx-background-color: #ce3ff8;" text="Tipo de Instalación" />
+                      <TableColumn fx:id="colTipoInstalacionReserva" prefWidth="228.00001182556116" style="-fx-background-color: #ce3ff8;" text="Tipo de Instalación" />
                       <TableColumn fx:id="colFechaReserva" prefWidth="253.60000610351562" style="-fx-background-color: #ce3ff8;" text="Fecha de reserva" />
-                        <TableColumn fx:id="colHoraReserva" prefWidth="275.99993896484375" style="-fx-background-color: #ce3ff8;" text="Hora de reserva" />
+                       <TableColumn fx:id="colHoraReserva" prefWidth="275.99993896484375" style="-fx-background-color: #ce3ff8;" text="Hora de reserva" />
                     </columns>
                   </TableView>
                </children>

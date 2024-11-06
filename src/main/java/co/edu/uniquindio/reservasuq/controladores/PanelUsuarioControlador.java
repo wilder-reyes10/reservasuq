@@ -1,9 +1,7 @@
 package co.edu.uniquindio.reservasuq.controladores;
 
-import co.edu.uniquindio.reservasuq.modelo.Horario;
-import co.edu.uniquindio.reservasuq.modelo.Instalacion;
-import co.edu.uniquindio.reservasuq.modelo.Persona;
-import co.edu.uniquindio.reservasuq.modelo.Reserva;
+import co.edu.uniquindio.reservasuq.controladores.observer.Observer;
+import co.edu.uniquindio.reservasuq.modelo.*;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoInstalacion;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoUsuario;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,7 +19,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PanelUsuarioControlador implements Initializable {
+public class PanelUsuarioControlador implements Initializable, Observer {
     private String correoInstitucional;
 
     @FXML
@@ -57,10 +55,17 @@ public class PanelUsuarioControlador implements Initializable {
     private Button cerrarSesion;
 
     @FXML
-    private TableColumn<Instalacion, String> colCapacidad;
+    private TableColumn<Instalacion, String> colCapacidadInstalacion;
 
     @FXML
-    private TableColumn<Instalacion, String> colCosto;
+    private TableColumn<Instalacion, String> colCostoInstalacion;
+
+    @FXML
+    private TableColumn<Instalacion, String> colHorarioInstalacion;
+
+    @FXML
+    private TableColumn<Instalacion, String> colTipoInstalacion;
+
 
     @FXML
     private TableColumn<Reserva, String> colFechaReserva;
@@ -69,12 +74,8 @@ public class PanelUsuarioControlador implements Initializable {
     private TableColumn<Reserva, String> colHoraReserva;
 
     @FXML
-    private TableColumn<Instalacion, String> colHorario;
+    private TableColumn<Reserva, String> colTipoInstalacionReserva;
 
-    @FXML
-    private TableColumn<Instalacion, String> colTipoInstalacion;
-    @FXML
-    private TableColumn<Instalacion, String> colTipoInstalacion1;
 
 
     @FXML
@@ -100,8 +101,11 @@ public class PanelUsuarioControlador implements Initializable {
     private ObservableList<Reserva> reservasObservable;
 
     private ControladorPrincipal controladorPrincipal;
+
+    private Persona personaActual;
     public PanelUsuarioControlador(){
         this.controladorPrincipal = ControladorPrincipal.getInstancia();
+        personaActual = Sesion.getInstanciaSesion().getPersona();
     }
 
     @FXML
@@ -132,14 +136,12 @@ public class PanelUsuarioControlador implements Initializable {
     @FXML
     void crearReserva(ActionEvent event) {
         try {
-            // Validar que se haya seleccionado una instalación en la tabla
             Instalacion instalacionSeleccionada = tablaInstalaciones.getSelectionModel().getSelectedItem();
             if (instalacionSeleccionada == null) {
                     controladorPrincipal.mostrarAlerta("Por favor seleccione una instalación", Alert.AlertType.WARNING);
                 return;
             }
 
-            // Obtener la fecha y hora desde los campos de la interfaz
             LocalDate fecha = fechaDate.getValue();
             LocalTime hora = LocalTime.parse(cbHora.getValue());
 
@@ -149,12 +151,8 @@ public class PanelUsuarioControlador implements Initializable {
                 return;
             }
 
-            // Supongamos que el tipo de usuario se determina por contexto, aquí sería EXTERNO o INTERNO
-            TipoUsuario tipoUsuario = TipoUsuario.EXTERNO;  // O el tipo que corresponda según el usuario
-
-            // Llamar al método de realizar reserva en la clase principal
-            controladorPrincipal.realizarReserva(tipoUsuario, instalacionSeleccionada.getTipoInstalacion(), fecha, hora, instalacionSeleccionada, correoInstitucional);
-
+            controladorPrincipal.realizarReserva(personaActual, fecha, hora, instalacionSeleccionada);
+            notificar();
             // Mostrar mensaje de confirmación
             controladorPrincipal.mostrarAlerta("Su reserva ha sido creada exitosamente. Verifique su correo para más detalles.", Alert.AlertType.INFORMATION);
 
@@ -211,9 +209,9 @@ void listarReservas(ActionEvent event) {
         cbHora.setItems(FXCollections.observableArrayList(controladorPrincipal.generarHorarios()));
         //COLUMNAS TABLA INSTALACIONES
         //Asignar las propiedades de la nota a las columnas de la tabla
-        colCapacidad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCapacidadMaxima())));
-        colCosto.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCostoExterno())));
-        colHorario.setCellValueFactory(cellData -> {
+        colCapacidadInstalacion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCapacidadMaxima())));
+        colCostoInstalacion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCostoExterno())));
+        colHorarioInstalacion.setCellValueFactory(cellData -> {
             List<Horario> horarios = cellData.getValue().getHorarios();
             // Convierte la lista de horarios en un solo String
             StringBuilder horariosStr = new StringBuilder();
@@ -222,14 +220,18 @@ void listarReservas(ActionEvent event) {
             }
             return new SimpleStringProperty(horariosStr.toString().trim());
         });
-        colTipoInstalacion1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoInstalacion().name().replace(" ", "")));
+        colTipoInstalacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoInstalacion().name().replace(" ", "")));
 
         //Cargar categorias en el ComboBox
         filtroBox.setItems(FXCollections.observableList(controladorPrincipal.listarInstalacionesCombo()));
 
         //Inicializar lista observable y cargar las instalaciones
         instalacionesObservable = FXCollections.observableArrayList();
+        tablaInstalaciones.setItems(instalacionesObservable);
         cargarInstalaciones();
+
+        reservasObservable = FXCollections.observableArrayList();
+        tablaHistorial.setItems(reservasObservable);
 
         tablaInstalaciones.setOnMouseClicked(e -> {
             instalacionSeleccionada = tablaInstalaciones.getSelectionModel().getSelectedItem();
@@ -242,7 +244,7 @@ void listarReservas(ActionEvent event) {
         });
 
         //COLUMNAS TABLA HISTORIAL DE RESERVAS
-        colTipoInstalacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoInstalacion().name().replace(" ", "")));
+        colTipoInstalacionReserva.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInstalacion().getTipoInstalacion().name().replace(" ", "")));
         colFechaReserva.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaReserva().toString()));
         colHoraReserva.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHora().toString()));
         cbTipoInstalacion.setItems(FXCollections.observableList(controladorPrincipal.listarInstalacionesCombo()));
@@ -257,16 +259,20 @@ void listarReservas(ActionEvent event) {
             }
         });
 
+        labelNombre.setText( personaActual.getNombre() );
+        labelUsuario.setText( personaActual.getTipoUsuario().toString() );
+
     }
     private void cargarInstalaciones() {
         instalacionesObservable.setAll(controladorPrincipal.listarInstalaciones());
-        tablaInstalaciones.setItems(instalacionesObservable);
     }
-    private void cargarReservas(String cedulaPersona) {
-        reservasObservable.setAll(controladorPrincipal.listarReservasPorPersona(cedulaPersona));
-        tablaHistorial.setItems(reservasObservable);
+    private void cargarReservas() {
+        reservasObservable.setAll(controladorPrincipal.listarReservasPorPersona(personaActual.getCedula()));
     }
 
-
+    @Override
+    public void notificar() {
+        cargarReservas();
     }
+}
 
