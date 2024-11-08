@@ -270,6 +270,34 @@ public class GestionarInstalacionesControlador implements Initializable {
         horariosIntalacion.setItems(FXCollections.observableArrayList(horarios));
 
     }
+    public void editarHorario(){
+        // Verifica que haya un horario seleccionado en el ComboBox
+        Horario horarioSeleccionado = horariosIntalacion.getSelectionModel().getSelectedItem();
+
+        if (horarioSeleccionado != null) {
+            try {
+                // Obtener los valores nuevos desde los campos de texto
+                String nuevoDia = diaSemana.getText();
+                LocalTime nuevaHoraInicio = LocalTime.parse(horaInicio.getText());
+                LocalTime nuevaHoraFin = LocalTime.parse(horaFin.getText());
+
+                // Actualizar el horario seleccionado con los nuevos valores
+                horarioSeleccionado.setDiaSemana(nuevoDia);
+                horarioSeleccionado.setHoraInicio(nuevaHoraInicio);
+                horarioSeleccionado.setHoraFin(nuevaHoraFin);
+
+                // Actualizar la lista de horarios en el ComboBox y la vista
+                horariosIntalacion.setItems(FXCollections.observableArrayList(horarios));
+                horariosIntalacion.getSelectionModel().select(horarioSeleccionado); // Seleccionar el horario editado
+                controladorPrincipal.mostrarAlerta("Horario editado con éxito", Alert.AlertType.INFORMATION);
+
+            } catch (Exception e) {
+                controladorPrincipal.mostrarAlerta("Error al editar el horario: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        } else {
+            controladorPrincipal.mostrarAlerta("Debe seleccionar un horario para editar", Alert.AlertType.WARNING);
+        }
+    }
     private void limpiarCampos(){
         capacidadMField.clear();
         costoExternoField.clear();

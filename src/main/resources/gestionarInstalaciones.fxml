@@ -15,36 +15,50 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Label>
-            <Button fx:id="volver" mnemonicParsing="false" onAction="#volver" prefHeight="26.0" prefWidth="187.0" text="Volver" />
          </children>
       </HBox>
       <Region prefHeight="160.0" prefWidth="648.0" />
       <HBox prefHeight="272.0" prefWidth="648.0" style="-fx-spacing: 20.0;">
          <children>
-            <GridPane prefHeight="164.0" prefWidth="475.0">
+            <GridPane prefHeight="130.0" prefWidth="716.0">
 
-               <Label text="Capacidad  máxima:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-               <Label text="Costo externo:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-               <Label text="Tipo Instalación:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-               <Label text="Horarios:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-               <TextField fx:id="capacidadMField" prefHeight="25.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+               <Label prefHeight="18.0" prefWidth="116.0" text="Capacidad  máxima:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+               <Label text="Costo externo:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+               <Label text="Tipo Instalación:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+               <Label text="Horarios:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+               <TextField fx:id="capacidadMField" prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                <TextField fx:id="costoExternoField" prefWidth="253.0" promptText="costo para externos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                <ComboBox fx:id="tipoInstalacionBox" prefHeight="25.0" prefWidth="329.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-               <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <HBox prefHeight="30.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                   <children>
-                     <TextField fx:id="diaSemana" prefHeight="25.0" prefWidth="62.0" promptText="Dia " />
-                     <TextField fx:id="horaInicio" prefHeight="26.0" prefWidth="79.0" promptText="Hora inicio " />
+                     <TextField fx:id="diaSemana" prefHeight="26.0" prefWidth="73.0" promptText="Dia " />
+                     <TextField fx:id="horaInicio" prefHeight="26.0" prefWidth="74.0" promptText="Hora inicio " />
                      <TextField fx:id="horaFin" prefHeight="26.0" prefWidth="59.0" promptText="Hora fin" />
-                     <Button mnemonicParsing="false" onAction="#agregarHorario" prefHeight="26.0" prefWidth="90.0" text="Agregar" />
+                     <Button mnemonicParsing="false" onAction="#agregarHorario" prefHeight="26.0" prefWidth="79.0" text="Agregar Horario" textAlignment="CENTER" wrapText="true">
+                        <font>
+                           <Font size="9.0" />
+                        </font></Button>
+                     <Button mnemonicParsing="false" onAction="#editarHorario" prefHeight="18.0" prefWidth="47.0" text="editar" />
                   </children>
                </HBox>
 
-               <ComboBox fx:id="horariosIntalacion" GridPane.columnIndex="1" GridPane.rowIndex="4" ></ComboBox>
+               <ComboBox fx:id="horariosIntalacion" prefHeight="26.0" prefWidth="172.0" promptText="Lista de horarios" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
 
             </GridPane>
             <Region prefHeight="138.0" prefWidth="85.0" />
-            <VBox prefHeight="138.0" prefWidth="256.0" style="-fx-spacing: 10;">
+            <VBox prefHeight="142.0" prefWidth="426.0" style="-fx-spacing: 10;">
                <children>
                   <Button mnemonicParsing="false" onAction="#anadirInstalacion" prefHeight="30.0" prefWidth="166.0" style="-fx-background-color: #c6f8b7;" text="Añadir instalación">
                      <font>
@@ -66,7 +80,7 @@
             <Region prefHeight="138.0" prefWidth="84.0" />
          </children>
       </HBox>
-      <Region prefHeight="166.0" prefWidth="648.0" />
+      <Region prefHeight="45.0" prefWidth="648.0" />
       <HBox alignment="CENTER" prefHeight="149.0" prefWidth="648.0" style="-fx-spacing: 20;">
          <children>
             <Label text="Tipo de instalación">
@@ -86,8 +100,8 @@
             <Button mnemonicParsing="false" onAction="#mostrarInstalaciones" style="-fx-background-color: #6df8d0;" text="Mostrar Instalaciones" />
          </children>
       </HBox>
-      <Region prefHeight="156.0" prefWidth="648.0" />
-      <TableView fx:id="tablaInstalaciones" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="365.0" prefWidth="670.0">
+      <Region prefHeight="32.0" prefWidth="648.0" />
+      <TableView fx:id="tablaInstalaciones" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="648.0">
          <columns>
             <TableColumn fx:id="colCapMaxima" prefWidth="141.00002098083496" text="Capacidad  máxima" />
             <TableColumn fx:id="colCostoExterno" minWidth="0.0" prefWidth="149.39999389648438" text="Costo externo" />
@@ -95,5 +109,6 @@
             <TableColumn fx:id="colHorarios" minWidth="0.0" prefWidth="178.79995727539062" text="Horarios" />
          </columns>
       </TableView>
+      <Button mnemonicParsing="false" onAction="#volver" text="Volver al inicio" />
    </children>
 </VBox>

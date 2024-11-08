@@ -32,7 +32,7 @@ public class RegistroControlador implements Initializable {
 
     public  void registrar(){
         try {
-            controladorPrincipal.registrarUsuario(txtNombre.getText(), txtCedula.getText(), txtCorreo.getText(), txtContrasena.getText(),TipoUsuario.valueOf(tipoUsuarioCombo.getValue().replace(" ", "")));
+            controladorPrincipal.registrarUsuario(txtCedula.getText(), txtNombre.getText(), txtCorreo.getText(), txtContrasena.getText(),TipoUsuario.valueOf(tipoUsuarioCombo.getValue().replace(" ", "")));
             controladorPrincipal.mostrarAlerta("Usted se ha registrado con éxito a Reservas UQ.", Alert.AlertType.INFORMATION);
         }catch (Exception e){
             controladorPrincipal.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

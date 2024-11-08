@@ -25,8 +25,8 @@ public class IniciarSesionControlador {
 
     // Método para manejar el evento de inicio de sesión
     public void iniciarSesion(ActionEvent event) {
-        String email = "pepe@email.com";//txtEmail.getText();
-        String contrasena = "123456";//txtContrasena.getText();
+        String email = txtEmail.getText();
+        String contrasena = txtContrasena.getText();
 
         try {
             // Llamar al método iniciarSesion de ReservaPrincipal

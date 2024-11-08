@@ -3,7 +3,6 @@ package co.edu.uniquindio.reservasuq.controladores;
 import co.edu.uniquindio.reservasuq.controladores.observer.Observer;
 import co.edu.uniquindio.reservasuq.modelo.*;
 import co.edu.uniquindio.reservasuq.modelo.enums.TipoInstalacion;
-import co.edu.uniquindio.reservasuq.modelo.enums.TipoUsuario;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PanelUsuarioControlador implements Initializable, Observer {
-    private String correoInstitucional;
 
     @FXML
     private Tab TabCrearReserva;
@@ -30,24 +28,9 @@ public class PanelUsuarioControlador implements Initializable, Observer {
 
     @FXML
     private TabPane TabPaneUsuario;
-
-    @FXML
-    private Button btBuscarReservas;
-
-    @FXML
-    private Button btEditarReservas;
-
-    @FXML
-    private Button btEliminarReservas;
-
-    @FXML
-    private Button btListarReservas;
-
     @FXML
     private ComboBox<String> cbHora;
 
-    @FXML
-    private ComboBox<String> cbTipoInstalacion;
     @FXML
     private ComboBox<String> filtroBox;
 
@@ -76,11 +59,6 @@ public class PanelUsuarioControlador implements Initializable, Observer {
     @FXML
     private TableColumn<Reserva, String> colTipoInstalacionReserva;
 
-
-
-    @FXML
-    private Button crearReserva;
-
     @FXML
     private DatePicker fechaDate;
 
@@ -108,24 +86,6 @@ public class PanelUsuarioControlador implements Initializable, Observer {
         personaActual = Sesion.getInstanciaSesion().getPersona();
     }
 
-    @FXML
-    void buscarReservas(ActionEvent event) {
-        String filtroInstalaciones = String.valueOf(cbTipoInstalacion.getSelectionModel().getSelectedItem());
-
-        try {
-            String filtroSinEspacios = filtroInstalaciones.replace(" ", "");
-            // Convertir el String 'filtro' a TipoInstalacion
-            TipoInstalacion tipoInstalacion = TipoInstalacion.valueOf(filtroSinEspacios);
-
-            List<Reserva> reservasFiltradas = controladorPrincipal.buscarReservas(tipoInstalacion);
-            tablaHistorial.setItems(FXCollections.observableArrayList(reservasFiltradas));
-        } catch (IllegalArgumentException e) {
-            controladorPrincipal.mostrarAlerta("El filtro seleccionado no es válido", Alert.AlertType.ERROR);
-        } catch (Exception e) {
-            controladorPrincipal.mostrarAlerta("Error al buscar las instalaciones", Alert.AlertType.ERROR);
-        }
-
-    }
 
     @FXML
     void cerrarSesion(ActionEvent event) {
@@ -138,7 +98,7 @@ public class PanelUsuarioControlador implements Initializable, Observer {
         try {
             Instalacion instalacionSeleccionada = tablaInstalaciones.getSelectionModel().getSelectedItem();
             if (instalacionSeleccionada == null) {
-                    controladorPrincipal.mostrarAlerta("Por favor seleccione una instalación", Alert.AlertType.WARNING);
+                controladorPrincipal.mostrarAlerta("Por favor seleccione una instalación", Alert.AlertType.WARNING);
                 return;
             }
 
@@ -151,24 +111,35 @@ public class PanelUsuarioControlador implements Initializable, Observer {
                 return;
             }
 
+            // Intentar realizar la reserva
             controladorPrincipal.realizarReserva(personaActual, fecha, hora, instalacionSeleccionada);
+
+            // Notificar y mostrar mensaje de confirmación
             notificar();
-            // Mostrar mensaje de confirmación
             controladorPrincipal.mostrarAlerta("Su reserva ha sido creada exitosamente. Verifique su correo para más detalles.", Alert.AlertType.INFORMATION);
 
         } catch (Exception e) {
-            // Manejar posibles errores
             controladorPrincipal.mostrarAlerta("No se pudo realizar la reserva: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     @FXML
-    void editarReserva(ActionEvent event) {
-
-    }
-
-    @FXML
     void eliminarReserva(ActionEvent event) {
+        try {
+            Reserva reservaSeleccionada = tablaHistorial.getSelectionModel().getSelectedItem();
+            if (reservaSeleccionada == null) {
+                controladorPrincipal.mostrarAlerta("Por favor seleccione una reserva para cancelar", Alert.AlertType.WARNING);
+                return;
+            }
+
+            controladorPrincipal.cancelarReserva(reservaSeleccionada);
+            notificar(); // Método para actualizar la vista después de la cancelación
+
+            controladorPrincipal.mostrarAlerta("Su reserva ha sido cancelada exitosamente. Verifique su correo para más detalles.", Alert.AlertType.INFORMATION);
+
+        } catch (Exception e) {
+            controladorPrincipal.mostrarAlerta("No se pudo cancelar la reserva: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
 
     }
     @FXML
@@ -198,17 +169,10 @@ public class PanelUsuarioControlador implements Initializable, Observer {
 
 
     }
-//lISTAR TODAS LAS RESERVAS
-@FXML
-void listarReservas(ActionEvent event) {
-
-}
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbHora.setItems(FXCollections.observableArrayList(controladorPrincipal.generarHorarios()));
         //COLUMNAS TABLA INSTALACIONES
-        //Asignar las propiedades de la nota a las columnas de la tabla
         colCapacidadInstalacion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCapacidadMaxima())));
         colCostoInstalacion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCostoExterno())));
         colHorarioInstalacion.setCellValueFactory(cellData -> {
@@ -247,7 +211,6 @@ void listarReservas(ActionEvent event) {
         colTipoInstalacionReserva.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInstalacion().getTipoInstalacion().name().replace(" ", "")));
         colFechaReserva.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaReserva().toString()));
         colHoraReserva.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHora().toString()));
-        cbTipoInstalacion.setItems(FXCollections.observableList(controladorPrincipal.listarInstalacionesCombo()));
 
         tablaHistorial.setOnMouseClicked(e -> {
             reservaSeleccionada = tablaHistorial.getSelectionModel().getSelectedItem();
@@ -255,12 +218,12 @@ void listarReservas(ActionEvent event) {
             if (reservaSeleccionada != null) {
                 controladorPrincipal.mostrarAlerta("Reserva Seleccionada: " + reservaSeleccionada.getInstalacion(), Alert.AlertType.INFORMATION);
             } else {
-                controladorPrincipal.mostrarAlerta("Seleccione una reserva para editar o eliminar", Alert.AlertType.WARNING);
+                controladorPrincipal.mostrarAlerta("Seleccione una reserva para cancelarla", Alert.AlertType.WARNING);
             }
         });
 
-        labelNombre.setText( personaActual.getNombre() );
-        labelUsuario.setText( personaActual.getTipoUsuario().toString() );
+        labelNombre.setText( personaActual.getNombre() + "   Bienvenido al panel de usuario de reservas uq " );
+        labelUsuario.setText( "Usted es: " + personaActual.getTipoUsuario().toString() );
 
     }
     private void cargarInstalaciones() {

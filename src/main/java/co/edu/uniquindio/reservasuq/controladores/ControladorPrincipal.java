@@ -83,11 +83,6 @@ public class ControladorPrincipal implements ServiciosUq {
     }
 
     @Override
-    public List<Reserva> listarTodasReservas() {
-        return reservaPrincipal.listarTodasReservas();
-    }
-
-    @Override
     public List<String> listarOpciones() {
         return reservaPrincipal.listarOpciones();
     }
@@ -100,11 +95,6 @@ public class ControladorPrincipal implements ServiciosUq {
     @Override
     public List<Instalacion> buscarInstalaciones(TipoInstalacion tipoInstalacion) throws Exception {
         return reservaPrincipal.buscarInstalaciones(tipoInstalacion);
-    }
-
-    @Override
-    public List<Reserva> buscarReservas(TipoInstalacion tipoInstalacion) throws Exception {
-        return reservaPrincipal.buscarReservas(tipoInstalacion);
     }
 
     @Override
@@ -130,7 +120,8 @@ public class ControladorPrincipal implements ServiciosUq {
     }
 
     @Override
-    public void cancelarReserva(String cedula, TipoInstalacion tipoInstalacion, LocalDate fecha) {
+    public void cancelarReserva(Reserva reserva) throws Exception {
+        reservaPrincipal.cancelarReserva(reserva);
 
     }
 
